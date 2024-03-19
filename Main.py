@@ -1,77 +1,74 @@
 import tkinter as tk
 import random
 
-class HangmanGame:
-    def _init_(self, root):
-        self.root = root
-        self.root.title("Hangman Game")
-
-        self.words_animals = ['dog', 'cat', 'elephant', 'giraffe', 'lion']
-        self.words_countries = ['india', 'france', 'canada', 'brazil', 'australia']
-        self.words_flags = ['usa', 'uk', 'germany', 'japan', 'italy']
-        self.words = self.words_animals + self.words_countries + self.words_flags
-
-        self.word = random.choice(self.words)
-        self.guesses = []
-        self.attempts = 6
-
-        self.word_display = tk.StringVar()
-        self.word_display.set('_ ' * len(self.word))
-
-        self.create_widgets()
-
-    def create_widgets(self):
-        self.word_label = tk.Label(self.root, textvariable=self.word_display, font=('Arial', 18))
-        self.word_label.grid(row=0, column=0, columnspan=2, padx=10, pady=10)
-
-        self.guess_label = tk.Label(self.root, text="Guess a letter:", font=('Arial', 14))
-        self.guess_label.grid(row=1, column=0, padx=10, pady=10)
-
-        self.guess_entry = tk.Entry(self.root, font=('Arial', 14))
-        self.guess_entry.grid(row=1, column=1, padx=10, pady=10)
-
-        self.submit_button = tk.Button(self.root, text="Submit", command=self.check_guess, font=('Arial', 14))
-        self.submit_button.grid(row=2, column=0, columnspan=2, padx=10, pady=10)
-
-        self.attempts_label = tk.Label(self.root, text=f"Attempts left: {self.attempts}", font=('Arial', 14))
-        self.attempts_label.grid(row=3, column=0, columnspan=2, padx=10, pady=10)
-
+class HangmanGame(tk.Tk):
+    def _init_(self):
+        super()._init_()
+        self.title("Hangman Game")
+        self.geometry("400x300")
+        
+        self.word_label = tk.Label(self, text="", font=("Arial", 24))
+        self.word_label.pack(pady=10)
+        
+        self.guess_entry = tk.Entry(self, font=("Arial", 16))
+        self.guess_entry.pack(pady=10)
+        
+        self.submit_button = tk.Button(self, text="Submit", command=self.check_guess)
+        self.submit_button.pack(pady=5)
+        
+        self.info_label = tk.Label(self, text="", font=("Arial", 12))
+        self.info_label.pack(pady=5)
+        
+        self.new_game_button = tk.Button(self, text="New Game", command=self.new_game)
+        self.new_game_button.pack(pady=5)
+        
+        self.instructions = """
+        Hangman Game Instructions:
+        - Guess the letters to complete the word.
+        - You have 6 attempts to guess the word.
+        - Avoid guessing double digits and special characters.
+        """
+        
+        self.levels = {
+            "Countries": ["USA", "Canada", "Japan", "India", "Brazil", "China", "Mexico"],
+            "Fruits": ["Apple", "Banana", "Orange", "Grape", "Strawberry", "Pineapple", "Watermelon"],
+            "Flags": ["USA", "UK", "France", "Germany", "Canada", "Australia", "Japan"],
+            "Capitals": ["Washington", "London", "Paris", "Berlin", "Ottawa", "Canberra", "Tokyo"]
+        }
+        
+        self.new_game()
+    
+    def new_game(self):
+        self.word = random.choice(self.levels[random.choice(list(self.levels.keys()))])
+        self.remaining_attempts = 6
+        self.guessed_letters = set()
+        self.update_display()
+    
+    def update_display(self):
+        displayed_word = "".join([letter if letter in self.guessed_letters else "_" for letter in self.word])
+        self.word_label.config(text=displayed_word)
+        self.info_label.config(text=f"Attempts remaining: {self.remaining_attempts}")
+    
     def check_guess(self):
-        guess = self.guess_entry.get().lower()
-        if guess in self.guesses:
-            tk.messagebox.showwarning("Warning", "You already guessed that letter!")
-        elif guess in self.word:
-            self.guesses.append(guess)
-            self.update_word_display()
-            if '_' not in self.word_display.get():
-                tk.messagebox.showinfo("Congratulations", f"You won! The word was: {self.word}")
-                self.reset_game()
-        else:
-            self.attempts -= 1
-            self.attempts_label.config(text=f"Attempts left: {self.attempts}")
-            if self.attempts == 0:
-                tk.messagebox.showerror("Game Over", f"Sorry, you lost! The word was: {self.word}")
-                self.reset_game()
-
+        guess = self.guess_entry.get().strip().upper()
         self.guess_entry.delete(0, tk.END)
-
-    def update_word_display(self):
-        display = ''
-        for char in self.word:
-            if char in self.guesses:
-                display += char + ' '
-            else:
-                display += '_ '
-        self.word_display.set(display)
-
-    def reset_game(self):
-        self.word = random.choice(self.words)
-        self.guesses = []
-        self.attempts = 6
-        self.word_display.set('_ ' * len(self.word))
-        self.attempts_label.config(text=f"Attempts left: {self.attempts}")
+        
+        if guess.isalpha() and len(guess) == 1 and guess not in self.guessed_letters:
+            self.guessed_letters.add(guess)
+            if guess not in self.word:
+                self.remaining_attempts -= 1
+            self.update_display()
+            if "_" not in self.word_label.cget("text"):
+                self.info_label.config(text="Congratulations! You won!")
+        else:
+            self.info_label.config(text="Invalid input! ")
+        
+        if self.remaining_attempts == 0:
+            self.info_label.config(text=f"Game over! The word was: {self.word}")
+    
+    def show_instructions(self):
+        tk.messagebox.showinfo("Instructions", self.instructions)
 
 if _name_ == "_main_":
-    root = tk.Tk()
-    hangman_game = HangmanGame(root)
-    root.mainloop()
+    game = HangmanGame()
+    game.mainloop()
