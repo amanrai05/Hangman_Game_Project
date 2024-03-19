@@ -1,18 +1,37 @@
 # Hangman_Game_Project
 The purpose of my repository is to make a hangman game using python programming
 
-Aman kumar 2310991770
-Role-
+Aman Kumar 2310991770
+Role:
+   - Communicating project requirements and goals to the team.
+   - Facilitating collaboration and communication among team members.
+   - Monitoring progress and addressing any issues or obstacles that arise.
+   - Providing support and guidance to team members as needed.
+   - Ensuring that the final product meets quality standards and client expectations
 
-chandrashekher kumar 2310991808
-Role -
+Chandra Shekher Kumar 2310991808
+Role :
+   - Designing the overall architecture and structure of the Hangman game using Tkinter.
+   - Assigning tasks to the other developer(s) and coordinating their work.
+   - Implementing core game logic, such as word selection, guess checking, and updating the game state.
+   - Reviewing code contributed by other team members and providing guidance and feedback.
+   - Ensuring that the codebase follows best practices and is well-organized for scalability and maintainability
 
-Devarsh bajaj 2310991814
-Role-
+Devarsh Bajaj 2310991814
+Role:
+   - Creating test cases based on the game's requirements and functionality.
+   - Conducting thorough testing of the game to uncover any defects or inconsistencies.
+   - Documenting and reporting bugs using a bug tracking system or similar tool.
+   - Collaborating with developers to verify fixes and retest corrected issues.
+   - Providing feedback to the Manager and development team on the overall quality of the game and any areas for improvement.
 
-
-Anish gupta 2310991775
-Role-
+Anish Gupta 2310991775
+Role :
+   - Collaborating with the Lead Developer to understand project requirements and priorities.
+   - Implementing GUI components using Tkinter, including labels, buttons, entry fields, etc.
+   - Writing code to handle user input, validate guesses, and update the game display.
+   - Testing their code to ensure that it functions correctly and integrates seamlessly with other components.
+   - Communicating with the Lead Developer and Manager to provide updates on progress and any challenges encountered.
 
 
 
