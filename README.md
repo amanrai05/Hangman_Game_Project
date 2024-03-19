@@ -33,9 +33,12 @@ Role :
    - Testing their code to ensure that it functions correctly and integrates seamlessly with other components.
    - Communicating with the Lead Developer and Manager to provide updates on progress and any challenges encountered.
 
+   - 
+
 
 
 Instructions for running the game:
+
 Here are the instructions for running the Hangman game:
 
 1. *Open a Python environment*: Make sure you have Python installed on your computer. You can download Python from the official website (python.org) if you haven't already.
@@ -59,6 +62,8 @@ Here are the instructions for running the Hangman game:
 10. *Enjoy the game*: Have fun playing Hangman and try to achieve the highest score possible!
 
 That's it! You've successfully run the Hangman game. If you encounter any issues or have further questions, feel free to ask!
+
+
 
 
 Additional features or notes.
