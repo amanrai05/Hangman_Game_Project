@@ -35,7 +35,7 @@ Role :
 
 
 
-#Instructions for running the game:
+Instructions for running the game:
 Here are the instructions for running the Hangman game:
 
 1. *Open a Python environment*: Make sure you have Python installed on your computer. You can download Python from the official website (python.org) if you haven't already.
