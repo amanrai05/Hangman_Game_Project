@@ -32,8 +32,8 @@ Role :
    - Writing code to handle user input, validate guesses, and update the game display.
    - Testing their code to ensure that it functions correctly and integrates seamlessly with other components.
    - Communicating with the Lead Developer and Manager to provide updates on progress and any challenges encountered.
-
-   - 
+     
+     --------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -60,15 +60,8 @@ Here are the instructions for running the Hangman game:
 9. *Play again*: After completing a round, you'll be asked if you want to play again. Type 'yes' to play another round or 'no' to exit the game.
 
 10. *Enjoy the game*: Have fun playing Hangman and try to achieve the highest score possible!
-
-
-
-
-
-
-
-
-
+    
+    ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 Additional features or notes.
