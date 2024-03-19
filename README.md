@@ -67,17 +67,17 @@ Here are the instructions for running the Hangman game:
 
 
 
+
+
+
+
 Additional features or notes.
 
 
 In the version 1.2 we have added some additional features are as follows:
 
 
-
-
 The Hangman game implemented using Tkinter incorporates several additional features compared to the previous code:
-
-
 
 
 1. *Graphical User Interface (GUI)*: This version of the game provides a graphical user interface using Tkinter, making it more user-friendly and visually appealing compared to the command-line interface in the previous code.
