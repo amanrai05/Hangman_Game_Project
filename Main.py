@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox
 import random
 import string
 
@@ -7,101 +6,96 @@ class HangmanGame:
     def __init__(self, root):
         self.root = root
         self.root.title("Hangman Game")
-
-        self.words = ["hangman", "python", "game", "player", "score", "hello", "world"]  # Add more words here
-        self.current_word = random.choice(self.words)
+        
+        self.words = ["python", "hangman", "game", "player", "score", "level"]
+        self.allowed_attempts = 6
+        self.current_word = ""
         self.guesses = set()
-        self.attempts = 6
-        self.level = 1
         self.score = 0
-        self.timer = None
+        self.level = 1
 
-        self.create_widgets()
-
-    def create_widgets(self):
-        self.instruction_button = tk.Button(self.root, text="Instructions", command=self.show_instructions)
-        self.instruction_button.pack()
-
-        self.word_label = tk.Label(self.root, text="Word: " + self.hide_word())
+        self.word_label = tk.Label(root, text="")
         self.word_label.pack()
 
-        self.attempts_label = tk.Label(self.root, text="Attempts left: " + str(self.attempts))
-        self.attempts_label.pack()
-
-        self.level_label = tk.Label(self.root, text="Level: " + str(self.level))
-        self.level_label.pack()
-
-        self.score_label = tk.Label(self.root, text="Score: " + str(self.score))
-        self.score_label.pack()
-
-        self.guess_entry = tk.Entry(self.root)
-        self.guess_entry.pack()
-
-        self.submit_button = tk.Button(self.root, text="Submit Guess", command=self.make_guess)
+        self.input_label = tk.Label(root, text="Enter a letter:")
+        self.input_label.pack()
+        
+        self.input_entry = tk.Entry(root)
+        self.input_entry.pack()
+        
+        self.submit_button = tk.Button(root, text="Submit", command=self.make_guess)
         self.submit_button.pack()
 
-    def hide_word(self):
-        return ''.join([letter if letter in self.guesses else '_' for letter in self.current_word])
+        self.level_label = tk.Label(root, text="Level: {}".format(self.level))
+        self.level_label.pack()
+
+        self.attempts_label = tk.Label(root, text="")
+        self.attempts_label.pack()
+
+        self.reset_button = tk.Button(root, text="Reset", command=self.reset_game)
+        self.reset_button.pack()
+
+        self.timer_label = tk.Label(root, text="")
+        self.timer_label.pack()
+
+        self.instructions_button = tk.Button(root, text="Instructions", command=self.display_instructions)
+        self.instructions_button.pack()
+
+        self.update_word_to_guess()
+        self.update_attempts_label()
+
+    def update_word_to_guess(self):
+        self.current_word = random.choice(self.words)
+        masked_word = "".join([letter if letter in self.guesses else "_" for letter in self.current_word])
+        self.word_label.config(text=masked_word)
 
     def make_guess(self):
-        guess = self.guess_entry.get().lower()
-        if len(guess) != 1 or guess not in string.ascii_lowercase:
-            messagebox.showerror("Invalid Guess", "Please enter a single letter.")
-            return
+        letter = self.input_entry.get().lower()
+        if letter in string.ascii_lowercase and letter not in self.guesses:
+            self.guesses.add(letter)
+            if letter not in self.current_word:
+                self.allowed_attempts -= 1
+            self.update_word_to_guess()
+            self.update_attempts_label()
+            self.check_win_loss()
+        else:
+            tk.messagebox.showerror("Error", "Invalid input. Please enter a valid lowercase letter.")
 
-        if guess in self.guesses:
-            messagebox.showinfo("Duplicate Guess", "You have already guessed this letter.")
-            return
+    def update_attempts_label(self):
+        self.attempts_label.config(text="Attempts left: {}".format(self.allowed_attempts))
 
-        self.guesses.add(guess)
-        if guess not in self.current_word:
-            self.attempts -= 1
-            self.update_attempts()
-
-        self.update_word()
-
-        if self.attempts == 0:
-            self.game_over()
-
-        if self.hide_word() == self.current_word:
-            self.level += 1
+    def check_win_loss(self):
+        if all(letter in self.guesses for letter in self.current_word):
             self.score += 10
-            self.start_next_level()
+            self.level += 1
+            self.level_label.config(text="Level: {}".format(self.level))
+            tk.messagebox.showinfo("Congratulations!", "You won! Your score is {}.".format(self.score))
+            self.reset_game()
+        elif self.allowed_attempts == 0:
+            tk.messagebox.showinfo("Game Over", "You lost. The word was '{}'.".format(self.current_word))
+            self.reset_game()
 
-    def update_attempts(self):
-        self.attempts_label.config(text="Attempts left: " + str(self.attempts))
-
-    def update_word(self):
-        self.word_label.config(text="Word: " + self.hide_word())
-
-    def start_next_level(self):
-        self.current_word = random.choice(self.words)
+    def reset_game(self):
+        self.current_word = ""
         self.guesses = set()
-        self.attempts = 6
-        self.level_label.config(text="Level: " + str(self.level))
-        self.attempts_label.config(text="Attempts left: " + str(self.attempts))
-        self.score_label.config(text="Score: " + str(self.score))
-        self.update_word()
+        self.allowed_attempts = 6
+        self.update_word_to_guess()
+        self.update_attempts_label()
 
-    def game_over(self):
-        messagebox.showinfo("Game Over", "You ran out of attempts. The word was: " + self.current_word)
-        self.root.destroy()
-
-    def show_instructions(self):
+    def display_instructions(self):
         instructions = """
         Hangman Game Instructions:
-        - Guess the letters to reveal the word.
-        - You have limited attempts.
-        - Each correct guess earns you points.
-        - Press 'Submit Guess' to make a guess.
-        - Have fun!
-        """
-        messagebox.showinfo("Instructions", instructions)
 
-def main():
-    root = tk.Tk()
-    hangman_game = HangmanGame(root)
-    root.mainloop()
+        - Guess the letters to complete the hidden word.
+        - You have 6 attempts to guess the word correctly.
+        - Each correct guess earns you 10 points.
+        - The game gets harder as you progress to higher levels.
+        - Good luck!
+        """
+        tk.messagebox.showinfo("Instructions", instructions)
+
 
 if __name__ == "__main__":
-    main()
+    root = tk.Tk()
+    game = HangmanGame(root)
+    root.mainloop()
