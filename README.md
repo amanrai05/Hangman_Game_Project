@@ -41,25 +41,14 @@ Instructions for running the game:
 
 Here are the instructions for running the Hangman game:
 
-1. *Open a Python environment*: Make sure you have Python installed on your computer. You can download Python from the official website (python.org) if you haven't already.
-
-2. *Copy the code*: Copy the entire code provided in the previous messages. This code contains the Hangman game implementation in Python.
-
-3. *Open a text editor*: Open a text editor or an Integrated Development Environment (IDE) of your choice. You can use editors like Notepad, Sublime Text, or IDEs like PyCharm, Visual Studio Code, etc.
-
-4. *Paste the code*: Paste the copied code into a new file in the text editor.
-
-5. *Save the file*: Save the file with a .py extension. You can choose any name for the file, for example, hangman_game.py.
-
-6. *Run the script*: Open a command prompt or terminal window. Navigate to the directory where you saved the Python file using the cd command.
-
-7. *Execute the script*: Type python hangman_game.py and press Enter. This command will run the Hangman game script.
-
-8. *Follow the prompts*: Once the game starts, follow the prompts on the screen. Choose the difficulty level, guess letters to uncover the hidden word, and try to solve the puzzle within the given attempts.
-
-9. *Play again*: After completing a round, you'll be asked if you want to play again. Type 'yes' to play another round or 'no' to exit the game.
-
-10. *Enjoy the game*: Have fun playing Hangman and try to achieve the highest score possible!
+1. Execute the Python script containing the Hangman game code in your preferred Python environment.
+2. Once the GUI window opens, you will see a button labeled "Instructions."
+3. Click on the "Instructions" button.
+4. A message box will pop up displaying the game instructions, explaining how to play the Hangman game.
+5. After reading the instructions, close the message box.
+6. You can then start playing the game by entering guesses in the entry field provided and clicking the "Submit Guess" button1
+7. *Play again*: After completing a round, you'll be asked if you want to play again. Type 'yes' to play another round or 'no' to exit the game.
+8. *Enjoy the game*: Have fun playing Hangman and try to achieve the highest score possible!
     
     ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
